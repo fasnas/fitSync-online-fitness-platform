@@ -53,7 +53,7 @@ const CoachApplicationModal = ({ isOpen, onClose }) => {
   };
 
   const handleImageChange = (e) => {
-    setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
+    setFormData((prev) => ({ ...prev, image: e.target.files[0]}));
   };
 
   const handleSubmit = async (e) => {

@@ -4,21 +4,21 @@ const trainers = [
   {
     name: "John Carter",
     specialty: "Strength & Conditioning",
-    image: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1",
+    image: "https://www.shutterstock.com/image-photo/handsome-man-big-muscles-posing-600nw-1953919795.jpg",
     description:
       "Certified trainer with 8+ years of experience helping clients build strength and stamina.",
   },
   {
     name: "Sophia Lane",
     specialty: "Yoga & Flexibility",
-    image: "https://images.unsplash.com/photo-1594737625785-cb0b66c3d1d7",
+    image: "https://t3.ftcdn.net/jpg/07/32/65/04/360_F_732650497_jXQjmlrrB6qT3nZrexd0WrnmeKejmxSc.jpg",
     description:
       "Expert in yoga and flexibility, helping you enhance mindfulness and body control.",
   },
   {
     name: "Michael Lee",
     specialty: "HIIT & Weight Loss",
-    image: "https://images.unsplash.com/photo-1576671081837-dc7f6e9f53e8",
+    image: "https://t4.ftcdn.net/jpg/03/33/92/01/360_F_333920115_MuKiRxlIL3WUPQvdEzpA0xJPfOYirIZ4.jpg",
     description:
       "High-intensity training specialist for fast and sustainable weight loss.",
   },

@@ -5,6 +5,8 @@ import axiosInstance from "../../../AxiosInstance";
 const Profile = () => {
   const { userProfile, setUserProfile, fetchUserProfile } = useContext(UserContext);
   const [editing, setEditing] = useState(false);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -13,7 +15,12 @@ const Profile = () => {
     weight: "",
     gender: "",
   });
-  const [showPasswordForm, setShowPasswordForm] = useState(false);
+
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
   useEffect(() => {
     if (userProfile) {
@@ -33,6 +40,11 @@ const Profile = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -47,6 +59,36 @@ const Profile = () => {
     } catch (error) {
       console.error(error);
       alert("Failed to update profile.");
+    }
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    const { currentPassword, newPassword, confirmPassword } = passwordData;
+
+    if (newPassword !== confirmPassword) {
+      alert("New password and confirm password do not match.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axiosInstance.patch(
+        "/user/changepassword",
+        { currentPassword, newPassword },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      alert("Password updated successfully.");
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+      setShowPasswordForm(false);
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Failed to update password.");
     }
   };
 
@@ -161,21 +203,33 @@ const Profile = () => {
               {showPasswordForm && (
                 <div className="mt-4 bg-gray-50 p-6 rounded-lg border space-y-4">
                   <h4 className="text-lg font-medium text-gray-800">Change Password</h4>
-                  <form className="space-y-4">
+                  <form onSubmit={handlePasswordSubmit} className="space-y-4">
                     <input
                       type="password"
+                      name="currentPassword"
+                      value={passwordData.currentPassword}
+                      onChange={handlePasswordChange}
                       placeholder="Current Password"
                       className="w-full px-4 py-2 border rounded"
+                      required
                     />
                     <input
                       type="password"
+                      name="newPassword"
+                      value={passwordData.newPassword}
+                      onChange={handlePasswordChange}
                       placeholder="New Password"
                       className="w-full px-4 py-2 border rounded"
+                      required
                     />
                     <input
                       type="password"
+                      name="confirmPassword"
+                      value={passwordData.confirmPassword}
+                      onChange={handlePasswordChange}
                       placeholder="Confirm Password"
                       className="w-full px-4 py-2 border rounded"
+                      required
                     />
                     <button type="submit" className="bg-gray-800 text-white py-2 w-full rounded">
                       Update Password

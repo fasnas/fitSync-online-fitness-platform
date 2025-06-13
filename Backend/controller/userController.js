@@ -5,6 +5,8 @@ import { comparePassword, hashPassword } from "../utils/bcrypt.js";
 import Booking from "../model/bookingSchema.js";
 import coaches from "../model/coachSchema.js";
 import taskes from "../model/taskSchema.js";
+import { otpStore } from "../utils/otpStore.js";
+import { sendOTP } from "../utils/sendmail.js";
 
 export const userRegister = asyncHandler(async (req, res) => {
   const { name, username, email, phone, password, role } = req.body;
@@ -42,8 +44,10 @@ export const getAllApprovedCoaches = asyncHandler(async (req, res) => {
 });
 
 export const getUserBookings = asyncHandler(async (req, res) => {
-  const bookings = await Booking.find({ user: req.user._id })
-  .populate("coach", "name expertise image experience ");
+  const bookings = await Booking.find({ user: req.user._id }).populate(
+    "coach",
+    "name expertise image experience "
+  );
   res.status(200).json({
     success: true,
     data: bookings,
@@ -201,7 +205,7 @@ export const calculateHealthStats = async (req, res) => {
 };
 
 export const getTask = asyncHandler(async (req, res) => {
-  const { bookingId } = req.params; 
+  const { bookingId } = req.params;
 
   if (!bookingId) {
     return res.status(400).json({ message: "bookingId is required" });
@@ -216,3 +220,40 @@ export const getTask = asyncHandler(async (req, res) => {
 });
 
 
+export const sendOtpController = async (req, res) => {
+  const { email } = req.body;
+  const otp = Math.floor(100000 + Math.random() * 900000); // random 6 digit
+
+  console.log("Generated OTP:", otp);
+
+  // Store OTP
+  otpStore.set(email, {
+    otp,
+    expires: Date.now() + 5 * 60 * 1000,
+  });
+
+  try {
+    await sendOTP(email, otp);
+    res.status(200).json({ message: "OTP sent successfully", otp }); // include OTP in response (for testing)
+  } catch (err) {
+    console.error("Email error:", err);
+    res.status(500).json({ message: "Failed to send OTP" });
+  }
+};
+
+export const verifyOtpController = (req, res) => {
+  const { email, otp } = req.body;
+  const stored = otpStore.get(email);
+
+  if (!stored) return res.status(400).json({ message: "No OTP found" });
+  if (Date.now() > stored.expires)
+    return res.status(400).json({ message: "OTP expired" });
+
+  if (stored.otp.toString() !== otp.toString())
+    return res.status(400).json({ message: "Invalid OTP" });
+  console.log("Expected OTP:", stored.otp);
+  console.log("User entered OTP:", otp);
+
+  otpStore.delete(email); // clear OTP after success
+  res.status(200).json({ message: "OTP verified" });
+};

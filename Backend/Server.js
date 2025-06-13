@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 dbConnect();
 
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: 'http://localhost:5174', 
   credentials: true,              
 }));
 
@@ -60,3 +60,5 @@ app.listen(port, () => {
   console.log(`server running on localhost ${port}`);
 });
 
+// ybfp fvrw jiio mtze
+// fitsync001@gmail.com

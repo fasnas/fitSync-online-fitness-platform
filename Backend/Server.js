@@ -9,6 +9,7 @@ import loginRouter from "./routes/loginRouter.js";
 import morgan from "morgan";
 import bookingRoute from "./routes/bookingRoute.js";
 import passport from "passport";
+// import vedioRoter from "./routes/vedioRoute.js";
 /////////////////////////////////////
 // import http from "http"
 // import { Server } from "socket.io";
@@ -46,6 +47,7 @@ app.use("/api/coach",coachRouter)
 app.use("/api/admin",adminRouter)
 app.use("/api/l",loginRouter)
 app.use("/api/b",bookingRoute)
+// app.use("/api",vedioRoter)
 
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err);
@@ -60,5 +62,3 @@ app.listen(port, () => {
   console.log(`server running on localhost ${port}`);
 });
 
-// ybfp fvrw jiio mtze
-// fitsync001@gmail.com

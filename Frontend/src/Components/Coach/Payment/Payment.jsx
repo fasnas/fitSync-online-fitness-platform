@@ -114,8 +114,8 @@ const PaymentManagement = () => {
 
       {/* Payment Details Modal */}
       {selectedPayment && (
-        <div className="fixed inset-0 bg-og-blur flex items-center justify-center z-50 p-4 backdrop-blur-xs">
-          <div className="bg-white rounded-xl p-6 w-full max-w-2xl">
+        <div className="fixed inset-0 bg-og-blur flex items-center justify-center z-50 p-4 backdrop-brightness-50">
+          <div className="bg-gray-200 rounded-sm p-6 w-full max-w-2xl">
             <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -163,12 +163,17 @@ const PaymentManagement = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-6 flex justify-end">
+            <div className="mt-6 flex justify-end gap-4">
               <button 
                 className="px-4 py-2 border rounded-lg hover:bg-gray-50"
                 onClick={() => setSelectedPayment(null)}
               >
                 Close
+              </button>
+              <button 
+                className="px-4 py-2 border rounded-lg hover:bg-gray-50"
+              >
+                Print
               </button>
             </div>
           </div>

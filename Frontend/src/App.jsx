@@ -29,6 +29,8 @@ import PlanDetiles from "./Components/User/Plan/PlanDetiles";
 import AdminSessionPage from "./Components/Coach/Session/SpecifiedPerson";
 import Settings from "./Components/Coach/Settings/Settings";
 import PaymentPage from "./Components/User/Payment/Payment";
+// import VideoElement from "./vedioRoute";
+
 
 
 
@@ -56,6 +58,7 @@ const LandingPage = () => (
 );
 
 const App = () => {
+
   return (
     
     <Routes>
@@ -84,8 +87,18 @@ const App = () => {
         <Route path="/coach/payment" element={<ProtectedRoute><PaymentManagement /></ProtectedRoute>} />
         <Route path="/coach/notification" element={<ProtectedRoute><NotificationPage/></ProtectedRoute>} />
         <Route path="/coach/settings" element={<ProtectedRoute><Settings/></ProtectedRoute>} />
+
       </Route>
+       {/* <Route
+        path="/user/videocall/:roomId"
+        element={
+          <ProtectedRoute>
+            <VideoElement />
+          </ProtectedRoute>
+        }
+      /> */}
     </Routes>
+    
   );
 };
 

@@ -77,6 +77,7 @@ const Profile = () => {
         "/user/changepassword",
         { currentPassword, newPassword },
         { headers: { Authorization: `Bearer ${token}` } }
+        
       );
 
       alert("Password updated successfully.");

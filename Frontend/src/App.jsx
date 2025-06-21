@@ -6,6 +6,7 @@ import Services from "./Components/LandingPage/Service"
 import Trainers from "./Components/LandingPage/Trainers";
 import Blog from "./Components/LandingPage/Blog";
 import Contact from "./Components/LandingPage/Contact"
+
 import Signup from "./Register/Singup";
 import Login from "./Register/Login";
 import UserLayout from "./Components/User/Home/Layout";
@@ -30,6 +31,7 @@ import AdminSessionPage from "./Components/Coach/Session/SpecifiedPerson";
 import Settings from "./Components/Coach/Settings/Settings";
 import PaymentPage from "./Components/User/Payment/Payment";
 // import VideoElement from "./vedioRoute";
+
 
 
 

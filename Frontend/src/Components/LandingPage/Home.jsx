@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <div
       id="home"
-      className="relative bg-cover bg-center h-screen"
+      className="relative bg-cover bg-center h-screen "
       style={{
         backgroundImage:
           "url('https://hips.hearstapps.com/hmg-prod/images/asian-man-uses-digital-tablet-to-lean-plank-royalty-free-image-1584377468.jpg')",
